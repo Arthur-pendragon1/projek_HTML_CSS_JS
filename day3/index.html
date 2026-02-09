@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App Keren</title>
+<style>
+    body {
+    background-color: #f4f4f9;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.quiz-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    width: 400px;
+    max-width: 90%;
+}
+
+.btn-grid {
+    display: grid;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+button {
+    padding: 12px;
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.hide { display: none; }
+
+#next-btn {
+    background-color: #28a745;
+    color: white;
+    width: 100%;
+}
+</style>
+</head>
+<body>
+    <div class="quiz-container" id="quiz">
+        <div id="quiz-header">
+            <h2 id="question">Pertanyaan akan muncul di sini...</h2>
+            <div id="answer-buttons" class="btn-grid">
+                </div>
+        </div>
+        <div id="footer">
+            <button id="next-btn" class="hide">Lanjut</button>
+        </div>
+    </div>
+
+    <div id="result-container" class="hide">
+        <h2>Kuis Selesai!</h2>
+        <p id="score-text"></p>
+        <button onclick="location.reload()">Ulangi Kuis</button>
+    </div>
+
+    <script> // 1. DATA PERTANYAAN
+const questions = [
+    {
+        question: "Apa ibu kota Indonesia saat ini?",
+        answers: [
+            { text: "Jakarta", correct: true },
+            { text: "Bandung", correct: false },
+            { text: "Nusantara", correct: false },
+            { text: "Surabaya", correct: false }
+        ]
+    },
+    {
+        question: "Siapa penemu lampu pijar?",
+        answers: [
+            { text: "Nikola Tesla", correct: false },
+            { text: "Thomas Edison", correct: true },
+            { text: "Albert Einstein", correct: false },
+            { text: "Elon Musk", correct: false }
+        ]
+    },
+    {
+        question: "2 + 2 x 2 adalah...",
+        answers: [
+            { text: "8", correct: false },
+            { text: "6", correct: true },
+            { text: "4", correct: false },
+            { text: "10", correct: false }
+        ]
+    }
+];
+
+// 2. INISIALISASI VARIABEL
+const questionElement = document.getElementById('question');
+const answerButtonsElement = document.getElementById('answer-buttons');
+const nextButton = document.getElementById('next-btn');
+const quizContainer = document.getElementById('quiz');
+const resultContainer = document.getElementById('result-container');
+const scoreText = document.getElementById('score-text');
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+// 3. LOGIKA JALANKAN KUIS
+function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+}
+
+function showQuestion() {
+    resetState();
+    let currentQuestion = questions[currentQuestionIndex];
+    questionElement.innerText = currentQuestion.question;
+
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.innerText = answer.text;
+        button.classList.add('btn');
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener('click', selectAnswer);
+        answerButtonsElement.appendChild(button);
+    });
+}
+
+function resetState() {
+    nextButton.classList.add('hide');
+    while (answerButtonsElement.firstChild) {
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+    }
+}
+
+function selectAnswer(e) {
+    const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct === "true";
+    
+    if (isCorrect) {
+        selectedBtn.style.background = "#d4edda"; // Hijau jika benar
+        score++;
+    } else {
+        selectedBtn.style.background = "#f8d7da"; // Merah jika salah
+    }
+
+    // Matikan semua tombol setelah memilih
+    Array.from(answerButtonsElement.children).forEach(button => {
+        button.disabled = true;
+        if(button.dataset.correct === "true") {
+            button.style.background = "#d4edda";
+        }
+    });
+
+    nextButton.classList.remove('hide');
+}
+
+nextButton.addEventListener('click', () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showResult();
+    }
+});
+
+function showResult() {
+    quizContainer.classList.add('hide');
+    resultContainer.classList.remove('hide');
+    scoreText.innerText = `Kamu menjawab ${score} dari ${questions.length} soal dengan benar!`;
+}
+
+startQuiz();</script>
+</body>
+</html>
