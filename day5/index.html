@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Multi-Page Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loading">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+    <nav>
+        <div class="nav-container">
+            <h2>My Website</h2>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <section class="hero">
+            <h1>Selamat Datang di Home</h1>
+            <p>Ini adalah halaman utama website multi-page kami.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Arthur. All rights reserved.</p>
+    </footer>
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+            }, 2000); // 2 detik loading
+        });
+    </script>
+</body>
+</html>
