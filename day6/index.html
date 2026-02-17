@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Tebak Kartu THR</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🎴 Tebak Kartu THR 🎴</h1>
+    <p>Uji keberuntungan THR kamu! Klik salah satu kartu untuk membaliknya.</p>
+
+    <div class="cards">
+        <div class="card" id="card1" onclick="flipCard(1)">
+            <div class="card-inner">
+                <div class="card-front">Kartu 1</div>
+                <div class="card-back" id="back1"></div>
+            </div>
+        </div>
+        <div class="card" id="card2" onclick="flipCard(2)">
+            <div class="card-inner">
+                <div class="card-front">Kartu 2</div>
+                <div class="card-back" id="back2"></div>
+            </div>
+        </div>
+        <div class="card" id="card3" onclick="flipCard(3)">
+            <div class="card-inner">
+                <div class="card-front">Kartu 3</div>
+                <div class="card-back" id="back3"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="copyright">
+        &copy; 2026 Arthur. All rights reserved.
+    </footer>
+
+    </div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalMessage"></h2>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
